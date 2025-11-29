@@ -193,9 +193,9 @@ def run_model(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model-path", type=str, default="STAMP-2B-uni")
+    parser.add_argument("--model-path", type=str, default="JiaZL/STAMP-2B-uni")
     parser.add_argument("--image-file", type=str, default='STAMP/images/horses.png')
-    parser.add_argument("--sam_path", type=str, default='sam_vit_h_4b8939.pth')
+    parser.add_argument("--sam_path", type=str, default='HCMUE-Research/SAM-vit-h')
     parser.add_argument("--query", type=str, default='Please segment the white horse in the image.')
     parser.add_argument("--sep", type=str, default=",")
     args = parser.parse_args()
