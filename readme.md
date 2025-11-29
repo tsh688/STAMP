@@ -1,33 +1,32 @@
 <div align="center">
 
-  <!-- 1. 标题 -->
   <h1>Better, Stronger, Faster: Tackling the Trilemma in MLLM-based Segmentation with Simultaneous Textual Mask Prediction</h1>
 
-  <!-- 2. 作者列表 (建议替换 href 里的 # 为作者个人主页链接) -->
   <div>
       <a href="https://jiazhen-code.github.io/about.me/" target="_blank">Jiazhen Liu</a>,
       <a href="#" target="_blank">Mingkuan Feng</a>,
       <a href="https://zjuchenlong.github.io/" target="_blank">Long Chen</a>
   </div>
-  <!-- 3. 机构信息 -->
   <div>
       The Hong Kong University of Science and Technology (HKUST)
   </div>
 
 
   <br>
-
-  <img src="https://img.shields.io/badge/arXiv-Coming%20Soon-inactive.svg?logo=arxiv&logoColor=b31b1b" alt="Paper Coming Soon">
-  &nbsp;&nbsp;
   
+<p align="center">
+<a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank">
+  <img src="https://img.shields.io/badge/arXiv-Coming%20Soon-inactive.svg?logo=arxiv&logoColor=b31b1b" alt="Paper Coming Soon">
+</a>
+    &nbsp;&nbsp;
   <!-- Project Website -->
   <a href="https://huggingface.co/JiaZL/STAMP-2B-uni" target="_blank">
   <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Project-FFD21E" alt="Hugging Face Project">
   </a>
-  
+    &nbsp;&nbsp;
   <!-- Online Demo -->
   <img src="https://img.shields.io/badge/Demo-Coming%20Soon-inactive.svg?logo=gradio&logoColor=orange" alt="Demo Coming Soon">
-  <br>
+</p>
 
   <!-- 5. 演示图片/Teaser -->
   <img src="https://i.imgur.com/waxVImv.png" alt="Oryx Video-ChatGPT">
