@@ -18,12 +18,12 @@
 <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank">
   <img src="https://img.shields.io/badge/arXiv-Coming%20Soon-inactive.svg?logo=arxiv&logoColor=b31b1b" alt="Paper Coming Soon">
 </a>
-    &nbsp;&nbsp;
+
   <!-- Project Website -->
   <a href="https://huggingface.co/JiaZL/STAMP-2B-uni" target="_blank">
   <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Project-FFD21E" alt="Hugging Face Project">
   </a>
-    &nbsp;&nbsp;
+
   <!-- Online Demo -->
   <img src="https://img.shields.io/badge/Demo-Coming%20Soon-inactive.svg?logo=gradio&logoColor=orange" alt="Demo Coming Soon">
 </p>
