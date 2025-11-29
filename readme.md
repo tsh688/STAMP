@@ -227,6 +227,20 @@ To be released.
 **3. Visual Question Answering**
 <p align="center"> <img src="images/showcase3.png" width="50%"> </p>
 
+### Interactive Multi-Round Capabilities
+
+Although STAMP is not explicitly trained on multi-round dialogue or interactive segmentation data, it naturally exhibits strong emergent abilities in multi-turn conversations, iterative mask refinement, and unified dialogue–segmentation interactions.
+
+The examples below demonstrate that STAMP can:
+
+- maintain context across multiple dialogue turns,
+
+- follow incremental segmentation instructions over several rounds, and
+
+- seamlessly switch between dialogue, explanation, and segmentation within the same interaction.
+
+These behaviors highlight STAMP’s practicality in real-world, interactive vision–language scenarios.
+
 **4. Multi-round Dialogue**
 <p align="center"> <img src="images/showcase4.png" width="50%"> </p>
 
