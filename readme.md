@@ -3,19 +3,11 @@
 with Simultaneous Textual Mask Prediction</h1>
 
 <div>
-    <a href='-' target='_blank'>-</a><sup>1</sup>&emsp;
-    <a href='-' target='_blank'>-</a><sup>1</sup>&emsp;
-    <a href='-' target='_blank'>-</a><sup>1</sup>&emsp;   
-    <a href='-' target='_blank'>-</a><sup>2</sup>&emsp;
-    <a href='-' target='_blank'>-</a><sup>2</sup>&emsp;
-    <a href='-' target='_blank'>-</a><sup>3</sup>&emsp;
-    <a href='-' target='_blank'>-</a><sup>3</sup>&emsp;
-    <a href='-' target='_blank'>-</a><sup>3</sup>&emsp;
+    <p href='-' target='_blank'>Jiazhen Liu, Mingkuan Feng, Long Chen</p> 
 </div>
 <div>
-    <sup>1</sup>-; 
-    <sup>2</sup>-; 
-    <sup>3</sup>-;
+    <sup>HKUST</sup>
+
 </div>
 
 [![Demo](https://img.shields.io/badge/Online-Demo-red)](#)
@@ -36,12 +28,17 @@ with Simultaneous Textual Mask Prediction</h1>
 
 ## Abstract
 *Integrating segmentation into Multimodal Large Language Models (MLLMs) presents a core trilemma: simultaneously preserving dialogue ability, achieving high segmentation performance, and ensuring fast inference. Prevailing paradigms are forced into a compromise. Embedding prediction methods introduce a conflicting pixel-level objective that degrades the MLLM's general dialogue abilities. The alternative, next-token prediction, reframes segmentation as an autoregressive task, which preserves dialogue but forces a trade-off between poor segmentation performance with sparse outputs or prohibitive inference speeds with rich ones. We resolve this trilemma with **all-mask prediction**, a novel paradigm that decouples autoregressive dialogue generation from non-autoregressive mask prediction. We present *STAMP*: **S**imultaneous **T**extual **A**ll-**M**ask **P**rediction, an MLLM that embodies this paradigm. After generating a textual response, STAMP predicts an entire segmentation mask in a single forward pass by treating it as a parallel “fill-in-the-blank" task over image patches. This design maintains the MLLM's dialogue ability by avoiding conflicting objectives, enables high segmentation performance by leveraging rich, bidirectional spatial context for all mask tokens, and achieves exceptional speed. Extensive experiments show that STAMP significantly outperforms state-of-the-art methods across multiple segmentation benchmarks, providing a solution that excels in dialogue, segmentation, and speed without compromise.*
-<div align="center">
-  <img src="images/all_mask.jpg" width=80%>
-  <div style="display: inline-block; color: #999; padding: 2px;">
-      Comparison of MLLM-based segmentation paradigms. (a) Embedding Prediction: A conflicting pixel-level objective (e.g., LISA) degrades the MLLM's general dialogue capabilities. (b) Next-token Prediction: Generates masks autoregressively (e.g., Text4Seg), forcing a trade-off between poor segmentation performance (for sparse outputs) and slow inference (for rich outputs). (c) Our All-mask Prediction: We decouple dialogue generation (autoregressive) from mask generation (non-autoregressive). By simultaneously predicting all mask tokens as patch-wise classifications in a single pass, our paradigm resolves the segmentation trilemma, uniting preserved dialogue abilities, high segmentation performance and fast inference speed.
-  </div>
-</div>
+
+<p align="center">
+  <img src="images/all_mask.jpg" width="80%">
+</p>
+
+<p align="center">
+  <span style="display:block; text-align:left; max-width:80%; margin:auto; font-style:italic; color:#666;">
+  Fig. Comparison of MLLM-based segmentation paradigms. (a) Embedding Prediction: A conflicting pixel-level objective (e.g., LISA) degrades the MLLM's general dialogue capabilities. (b) Next-token Prediction: Generates masks autoregressively (e.g., Text4Seg), forcing a trade-off between poor segmentation performance (for sparse outputs) and slow inference. (c) Our All-mask Prediction: ...
+  </span>
+</p>
+
 
 ---
 
@@ -97,22 +94,25 @@ STAMP/
 └── readme.md
 ```
 ## Datasets
+
+- Referring expression segmentation dataset
+    - [RefCOCO](https://web.archive.org/web/20220413011718/https://bvisionweb1.cs.unc.edu/licheng/referit/data/refcoco.zip)
+    - [RefCOCO+](https://web.archive.org/web/20220413011656/https://bvisionweb1.cs.unc.edu/licheng/referit/data/refcoco+.zip)
+    - [RefCOCOg](https://web.archive.org/web/20220413012904/https://bvisionweb1.cs.unc.edu/licheng/referit/data/refcocog.zip)
+    - [RefCLEF](https://web.archive.org/web/20220413011817/https://bvisionweb1.cs.unc.edu/licheng/referit/data/refclef.zip) ([saiapr_tc-12](https://web.archive.org/web/20220515000000/http://bvisionweb1.cs.unc.edu/licheng/referit/data/images/saiapr_tc-12.zip)) 
+
+- Generalized referring expression segmentation dataset
+  - [gRefCOCO](https://drive.google.com/drive/folders/1My2U6SuTAZG9yGBKe_PjsUJJgjdxOiiN)
+
+- Reason Segmentation
+  - [ReasonSeg](https://github.com/dvlab-research/LISA)
+
 - [llava_v1_5_mix665k.json](https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K/blob/main/llava_v1_5_mix665k.json)
     - COCO: [train2017](http://images.cocodataset.org/zips/train2017.zip)
     - GQA: [images](https://downloads.cs.stanford.edu/nlp/data/gqa/images.zip)
     - OCR-VQA: [download script](https://drive.google.com/drive/folders/1_GYPY5UkUy7HIcR0zq3ZCFgeZN7BAfm_?usp=sharing)
     - TextVQA: [train_val_images](https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip)
     - VisualGenome: [part1](https://cs.stanford.edu/people/rak248/VG_100K_2/images.zip), [part2](https://cs.stanford.edu/people/rak248/VG_100K_2/images2.zip)
-- Referring expression segmentation dataset
-    - [refCOCO](https://web.archive.org/web/20220413011718/https://bvisionweb1.cs.unc.edu/licheng/referit/data/refcoco.zip)
-    - [refCOCO+](https://web.archive.org/web/20220413011656/https://bvisionweb1.cs.unc.edu/licheng/referit/data/refcoco+.zip)
-    - [refCOCOg](https://web.archive.org/web/20220413012904/https://bvisionweb1.cs.unc.edu/licheng/referit/data/refcocog.zip)
-    - [refCLEF](https://web.archive.org/web/20220413011817/https://bvisionweb1.cs.unc.edu/licheng/referit/data/refclef.zip) ([saiapr_tc-12](https://web.archive.org/web/20220515000000/http://bvisionweb1.cs.unc.edu/licheng/referit/data/images/saiapr_tc-12.zip)) 
-- Semantic segmentation dataset
-    - [COCOStuff](http://calvin.inf.ed.ac.uk/wp-content/uploads/data/cocostuffdataset/stuffthingmaps_trainval2017.zip)
-    - [ADE20K](https://ade20k.csail.mit.edu/)
-    - [PASCAL VOC](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/)
-    - [PASCAL Context](https://cs.stanford.edu/~roozbeh/pascal-context/)
 
 Download them from the above links, and organize them as follows.
 ```
@@ -134,24 +134,7 @@ Download them from the above links, and organize them as follows.
 │   │   └── refcocog
 |   |       ├── instances.json
 │   │       └── ...
-│   ├── semantic_seg
-│   │   ├── ADE20K
-│   │       ├── annotations
-│   │       └── images
-│   │   ├── PAS20
-│   │       ├── JPEGImages
-│   │       ├── SegmentationClass
-│   │       └── val.txt
-│   │   └── PC59
-│   │       ├── JPEGImages
-│   │       ├── SegmentationClassContext
-│   │       └── pascalcontext_val.txt
-|   ├── coco
-|   │   └── train2017
-|   ├── cocostuff
-|   │   └── annotations
-|   |       ├── 000000000009_labelTrainIds.png
-|   |       └── ...
+│   ├── reason_seg
 |   ├── gqa
 │   |   └── images
 |   ├── ocr_vqa
