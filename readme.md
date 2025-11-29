@@ -1,6 +1,6 @@
-<div align="center">
+# Better, Stronger, Faster: Tackling the Trilemma in MLLM-based Segmentation with Simultaneous Textual Mask Prediction
 
-  <h1>Better, Stronger, Faster: Tackling the Trilemma in MLLM-based Segmentation with Simultaneous Textual Mask Prediction</h1>
+<div align="center">
 
   <div>
       <a href="https://jiazhen-code.github.io/about.me/" target="_blank">Jiazhen Liu</a>,
@@ -11,98 +11,176 @@
       The Hong Kong University of Science and Technology (HKUST)
   </div>
 
-
   <br>
-  
-<p align="center">
-<a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank">
-  <img src="https://img.shields.io/badge/arXiv-Coming%20Soon-inactive.svg?logo=arxiv&logoColor=b31b1b" alt="Paper Coming Soon">
-</a>
 
-  <!-- Project Website -->
-  <a href="https://huggingface.co/JiaZL/STAMP-2B-uni" target="_blank">
-  <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Project-FFD21E" alt="Hugging Face Project">
+  <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank">
+    <img src="https://img.shields.io/badge/arXiv-Coming%20Soon-inactive.svg?logo=arxiv&logoColor=b31b1b" alt="Paper Coming Soon">
   </a>
-
-  <!-- Online Demo -->
+  <a href="https://huggingface.co/JiaZL/STAMP-2B-uni" target="_blank">
+    <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Project-FFD21E" alt="Hugging Face Project">
+  </a>
   <img src="https://img.shields.io/badge/Demo-Coming%20Soon-inactive.svg?logo=gradio&logoColor=orange" alt="Demo Coming Soon">
-</p>
 
-  <!-- 5. 演示图片/Teaser -->
-  <img src="https://i.imgur.com/waxVImv.png" alt="Oryx Video-ChatGPT">
+  <br><br>
+  <img src="https://i.imgur.com/waxVImv.png" alt="Teaser" width="100%">
 
 </div>
 
+## 📖 Introduction
 
-## Abstract
-*Integrating segmentation into Multimodal Large Language Models (MLLMs) presents a core trilemma: simultaneously preserving dialogue ability, achieving high segmentation performance, and ensuring fast inference. Prevailing paradigms are forced into a compromise. Embedding prediction methods introduce a conflicting pixel-level objective that degrades the MLLM's general dialogue abilities. The alternative, next-token prediction, reframes segmentation as an autoregressive task, which preserves dialogue but forces a trade-off between poor segmentation performance with sparse outputs or prohibitive inference speeds with rich ones. We resolve this trilemma with **all-mask prediction**, a novel paradigm that decouples autoregressive dialogue generation from non-autoregressive mask prediction. We present *STAMP*: **S**imultaneous **T**extual **A**ll-**M**ask **P**rediction, an MLLM that embodies this paradigm. After generating a textual response, STAMP predicts an entire segmentation mask in a single forward pass by treating it as a parallel “fill-in-the-blank" task over image patches. This design maintains the MLLM's dialogue ability by avoiding conflicting objectives, enables high segmentation performance by leveraging rich, bidirectional spatial context for all mask tokens, and achieves exceptional speed. Extensive experiments show that STAMP significantly outperforms state-of-the-art methods across multiple segmentation benchmarks, providing a solution that excels in dialogue, segmentation, and speed without compromise.*
+**STAMP** (**S**imultaneous **T**extual **A**ll-**M**ask **P**rediction) is a novel MLLM-based segmentation paradigm that resolves the core “trilemma” in current methods: balancing **dialogue ability**, **segmentation performance**, and **inference speed**.
 
+By decoupling autoregressive dialogue generation from non-autoregressive mask prediction, STAMP predicts the entire segmentation mask in a single forward pass parallel to the text response.
+
+<details>
+<summary>Click to view the Paradigm Comparison Figure</summary>
 <p align="center">
   <img src="images/STAMP.png" width="80%">
 </p>
+</details>
 
-<p align="center">
-  <span style="display:block; text-align:justify; max-width:80%; margin:auto; font-style:italic; color:#666;">
-  Fig. Comparison of MLLM-based segmentation paradigms. (a) Embedding Prediction: A conflicting pixel-level objective (e.g., LISA) degrades the MLLM's general dialogue capabilities. (b) Next-token Prediction: Generates masks autoregressively (e.g., Text4Seg), forcing a trade-off between poor segmentation performance (for sparse outputs) and slow inference. Our All-mask Prediction: We decouple dialogue generation (autoregressive) from mask generation (non-autoregressive). By simultaneously predicting all mask tokens as patch-wise classifications in a single pass, our paradigm resolves the segmentation trilemma, uniting preserved dialogue abilities, high segmentation performance and fast inference speed.
-  </span>
-</p>
+## 🚀 Quick Start
 
+### 1. Installation
 
----
+Clone the repository and set up the environment:
 
-
-
-## Dependencies and Installation
-Clone the repository and install the required dependencies:
-```
+```bash
 git clone https://github.com/HKUST-LongGroup/STAMP.git
 cd STAMP
 
-# create new anaconda env
+# Create environment
 conda create -n STAMP python=3.10
 conda activate STAMP
 
-# install torch and dependencies
+# Install dependencies
 pip install -r requirements.txt
 pip install flash-attn --no-build-isolation
+
+# Download SAM checkpoint (Required for mask generation)
+wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
 ```
 
-##  Project Structure
+### 2. Model Zoo
 
-```text
-STAMP/
-├── data/                   # Data preprocessing and formatting scripts
-│   ├── create_grefcoco.py
-│   ├── create_refcoco_new.py
-│   ├── grefer.py
-│   └── ...
-├── dataset/                # PyTorch dataset implementations
-│   ├── grefer_seg_dataset.py
-│   └── refer_seg_dataset.py
-├── eval/                   # Evaluation scripts and metrics
-│   ├── eval_refer_seg.py
-│   ├── val_utils.py
-│   └── ...
-├── images/                 # Demo images
-│   └── horses.png
-├── model/                  # Model architecture definitions (STAMP, Qwen2-VL)
-│   ├── segment_anything/
-│   ├── modeling_qwen2_vl.py
-│   └── qwen_changes.py
-├── scripts/                # Shell scripts for running evaluation/training
-│   ├── eval_ref.sh
-|   └── launch_all.sh
-├── train/                  # Training logic and entry points
-│   ├── main_seg_train.py
-│   ├── seg_trainer.py
-│   ├── val_callback.py
-│   └── ...
-├── run_seg_ref.py          # Main inference/demo script
-├── requirement.txt            
-├── segment_predictor_cache.py # Predictor wrapper with cache
-└── readme.md
+Currently, we have uploaded 2 versions of STAMP models to Hugging Face:
+
+| Model Name | Paper Reference | Hugging Face | Description                                             |
+| :--- | :--- | :--- |:--------------------------------------------------------|
+| **STAMP-2B-uni** | **Table 5** | [🤗 Link](https://huggingface.co/JiaZL/STAMP-2B-uni) | Unified tasks (Dialogue and Segmentation), lightweight. |
+| **STAMP-7B-lora** | **Table 2** (7B model) | [🤗 Link](https://huggingface.co/JiaZL/STAMP-7B-lora) | Higher capacity, best segmentation performance.         |
+
+
+### 3. Inference
+
+The code automatically downloads models from Hugging Face if not found locally.
+
+#### Option A: Command Line Interface (CLI)
+
+```bash
+# Example with STAMP-2B
+CUDA_VISIBLE_DEVICES="0" python run_seg_ref.py \
+    --model-path "JiaZL/STAMP-2B-uni" \ 
+    --image-file "images/horses.png" \
+    --sam_path "sam_vit_h_4b8939.pth" \
+    --query "Please segment the white horse in the image."
+    
+# For 7B variant, change --model-path to "JiaZL/STAMP-7B-lora"
 ```
-## Datasets
+
+#### Option B: Python API
+
+```python
+import torch
+import numpy as np
+import cv2
+from PIL import Image
+from segment_predictor_cache import GenerativeSegmenter
+from model.segment_anything import sam_model_registry, SamPredictor
+
+# Config: Select your model
+MODEL_PATH = "JiaZL/STAMP-2B-uni" # or "JiaZL/STAMP-7B-lora"
+SAM_PATH = "sam_vit_h_4b8939.pth"
+IMAGE_PATH = "images/horses.png"
+QUERY = "Please segment the white horse in the image."
+
+# Load STAMP & SAM
+segmenter = GenerativeSegmenter(MODEL_PATH, device_map="cuda", min_pixels=1024*28*28, max_pixels=1280*28*28)
+sam = sam_model_registry["vit_h"](checkpoint=SAM_PATH).to(device='cuda', dtype=torch.float32)
+predictor = SamPredictor(sam)
+
+# Inference
+image = Image.open(IMAGE_PATH).convert("RGB")
+predictor.set_image(np.array(image))
+with torch.inference_mode():
+    masks, response = segmenter.generate_with_segmentation(image, QUERY)
+
+# Save Result
+print(f"Response: {response}")
+if masks:
+    cv2.imwrite("output_mask.png", (masks[0].cpu().numpy() * 255).astype(np.uint8))
+    print("Mask saved to output_mask.png")
+```
+
+---
+
+## 🖼️ Gallery & Showcases
+
+STAMP is not only capable of standard referring segmentation but also excels in reasoning segmentation, VQA, and interactive multi-round conversation/segmentation.
+
+Note, we **DO NOT** explicit train STAMP on multi-round data, 
+
+### 1. Basic Capabilities
+| Standard Ref-Seg | Reasoning Seg | Visual Question Answering |
+| :---: | :---: | :---: |
+| <img src="images/showcase1.png" width="100%"> | <img src="images/showcase2.png" width="100%"> | <img src="images/showcase3.png" width="100%"> |
+
+### 2. Interactive Multi-Round Capabilities
+STAMP can maintain context across multiple turns, follow incremental instructions, and seamlessly switch between dialogue and segmentation.
+
+| Multi-round Dialogue | Multi-round Segmentation |
+| :---: | :---: |
+| <img src="images/showcase4.png" width="100%"> | <img src="images/showcase5.png" width="100%"> |
+
+### 3. Unified Dialogue & Segmentation
+<div align="center">
+  <img src="images/showcase6.png" width="80%">
+  <p><i>Examples of unified dialogue, explanation, and segmentation within the same interaction.</i></p>
+</div>
+
+---
+
+## 📊 Evaluation & Training
+
+### 1. Segmentation Evaluation
+Evaluate Referring Expression Segmentation (RefCOCO/+/g, etc.):
+
+```bash
+bash scripts/eval_ref.sh
+# Logs will be saved to: eval/eval_logs
+```
+
+
+### 2. VQA Evaluation
+To evaluate VQA performance, you can directly use `lmm-eval`. 
+**Note:** The weight and structural changes involved in STAMP **DO NOT** influence the standard VQA logic, ensuring general dialogue capabilities are preserved.
+
+### 3. Training
+We provide scripts for training both versions.
+
+| Model Version | Training Script |
+| :--- | :--- |
+| **STAMP-2B** | `bash scripts/launch_all_2B.sh` |
+| **STAMP-7B** | `bash scripts/launch_all_7B.sh` |
+
+---
+
+## 📂 Data Preparation
+
+Please organize your datasets as follows in `playground/data`.
+
+<details>
+<summary><b>Click to expand Data Structure & Download Links</b></summary>
 
 - Referring expression segmentation dataset
     - [RefCOCO](https://web.archive.org/web/20220413011718/https://bvisionweb1.cs.unc.edu/licheng/referit/data/refcoco.zip)
@@ -157,7 +235,6 @@ Download them from the above links, and organize them as follows.
 |   |    └── VG_100K_2
 |   └── llava_v1_5_mix665k.json
 ```
-To evaluate the VQA performance, you can directly evaluate it through `lmm-eval`. The weight and structural changes involved in the `STAMP` **DO NOT** influence the VQA logic.
 
 ## Json files
 Generate the json files:
@@ -172,99 +249,28 @@ The processed JSON files are listed below:
   * `STAMP/train/json_files/refcoco+_formatted_all_sentences_doubled_mp.json`
   * `STAMP/train/json_files/refcocog_formatted_all_sentences_doubled_mp.json`
 
+</details>
 
-## Quick Inference
-### Quick Inference with STAMP-2B-uni
-To run inference with STAMP-2B-uni, please pre-download the following checkpoints to expedite the workflow:
-* **[STAMP-2B-uni model](https://huggingface.co/JiaZL/STAMP-2B-uni)**
-* **[SAM checkpoint (sam_vit_h_4b8939.pth)](https://huggingface.co/HCMUE-Research/SAM-vit-h/blame/main/sam_vit_h_4b8939.pth)**
 
-You can also directly run the following command. It will automatically download the checkpoint from Hugging Face.
-```
-CUDA_VISIBLE_DEVICES="0" python STAMP/run_seg_ref.py --model-path="JiaZL/STAMP-2B-uni" --image-file="STAMP/images/horses.png" --sam_path="HCMUE-Research/SAM-vit-h" --query="Please segment the white horse in the image."
-```
-### Quick Inference with STAMP-7B
-To run inference with STAMP-7B model, please pre-download the following checkpoints to expedite the workflow:
-* **[STAMP-7B model](https://huggingface.co/JiaZL/STAMP-7B-lora)**
-* **[SAM checkpoint (sam_vit_h_4b8939.pth)](https://huggingface.co/HCMUE-Research/SAM-vit-h/blame/main/sam_vit_h_4b8939.pth)**
+---
 
-You can also directly run the following command. It will automatically download the checkpoint from Hugging Face.
-```
-CUDA_VISIBLE_DEVICES="0" python STAMP/run_seg_ref.py --model-path="JiaZL/seg-7B" --image-file="STAMP/images/horses.png" --sam_path="HCMUE-Research/SAM-vit-h" --query="Please segment the white horse in the image."
+## 📝 Citation
+
+If you find this work useful, please cite our paper:
+
+```bibtex
+@article{stamp2024,
+  title={Better, Stronger, Faster: Tackling the Trilemma in MLLM-based Segmentation with Simultaneous Textual Mask Prediction},
+  author={Liu, Jiazhen and Feng, Mingkuan and Chen, Long},
+  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  year={2024}
+}
 ```
 
-## Model evaluation
-Referring expression segmengtation:
-```
-bash STAMP/scripts/eval_ref.sh
-```
-### Evaluation logs
-The evaluation logs are saved in the directory: STAMP/eval/eval_logs
+## 📄 License
 
+This project is licensed under the Apache 2.0 License.
 
-## Model training
-### Train STAMP-2B
-```
-bash STAMP/scripts/launch_all_2B.sh
-```
-### Train STAMP-7B
-```
-bash STAMP/scripts/launch_all_7B.sh
-```
-### Training logs
-To be released.
-## Experimental results
+## 📧 Contact
 
-<p align="center"> <img src="images/results1.jpg" width="80%"> </p>
-<p align="center"> <img src="images/results2.jpg" width="40%"> </p>
-<p align="center"> <img src="images/results3.jpg" width="40%"> </p>
-<p align="center"> <img src="images/results4.jpg" width="80%"> </p>
-
-
-## Showcases of STAMP
-
-**1. Standard Referring Segmentation**
-<p align="center"> <img src="images/showcase1.png" width="80%"> </p>
-
-**2. Reasoning Segmentation**
-<p align="center"> <img src="images/showcase2.png" width="50%"> </p>
-
-**3. Visual Question Answering**
-<p align="center"> <img src="images/showcase3.png" width="50%"> </p>
-
-### Interactive Multi-Round Capabilities
-
-Although STAMP is not explicitly trained on multi-round dialogue or interactive segmentation data, it naturally exhibits strong emergent abilities in multi-turn conversations, iterative mask refinement, and unified dialogue–segmentation interactions.
-
-The examples below demonstrate that STAMP can:
-
-- maintain context across multiple dialogue turns,
-
-- follow incremental segmentation instructions over several rounds, and
-
-- seamlessly switch between dialogue, explanation, and segmentation within the same interaction.
-
-These behaviors highlight STAMP’s practicality in real-world, interactive vision–language scenarios.
-
-**4. Multi-round Dialogue**
-<p align="center"> <img src="images/showcase4.png" width="50%"> </p>
-
-**5. Multi-round Segmentation**
-<p align="center"> <img src="images/showcase5.png" width="50%"> </p>
-
-**6. Unified Dialogue & Segmentation Examples**
-<p align="center"> <img src="images/showcase6.png" width="60%"> </p>
-
-
-
-## Citation
-
-## License
-
-## Acknowledgement
-
-
-## Contact
 If you have any questions, please feel free to reach out at `jliugj@connect.ust.hk`.
-
-
